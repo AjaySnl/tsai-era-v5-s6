@@ -1,0 +1,89 @@
+{
+  "overall": "PASS",
+  "requirements": [
+    {
+      "name": "Tokenizer integrity",
+      "result": "PASS",
+      "evidence": "Tokenizer re-hash matches on second init",
+      "detail": ""
+    },
+    {
+      "name": "Shards and manifest integrity",
+      "result": "PASS",
+      "evidence": "manifests/shard_web_v1.json",
+      "detail": "13 manifests validated"
+    },
+    {
+      "name": "Evaluation firewall",
+      "result": "PASS",
+      "evidence": "Eval shard 'shard_eval_doc_0056_eval_eval' and val shard 'shard_val_doc_0059_validation_validation' both blocked",
+      "detail": "FirewallViolationError raised and caught"
+    },
+    {
+      "name": "SFT and agentic loss masks",
+      "result": "PASS",
+      "evidence": "Verified in Phase 5b: SFT prompt=0/response=1, agentic observation=0/output=1",
+      "detail": "SFT response tokens with loss=1: 27, agentic model output tokens with loss=1: 16"
+    },
+    {
+      "name": "Packing correctness (attention_mask + position_ids)",
+      "result": "PASS",
+      "evidence": "Phase 5c: attention_mask and position_ids verified on multi-doc GREEDY batch",
+      "detail": "attention_mask: 32 real tokens=1, 32 pad tokens=0 | position_ids: starts_at_zero=True, doc_boundary_resets=[]"
+    },
+    {
+      "name": "Crash simulation",
+      "result": "PASS",
+      "evidence": "SimulatedCrashError raised at step 25",
+      "detail": "Last checkpoint: step_00020.json"
+    },
+    {
+      "name": "Crash recovery",
+      "result": "PASS",
+      "evidence": "checkpoints/step_00020.json",
+      "detail": "Resume step 25 batch is deterministic and was not in pre-crash ledger"
+    },
+    {
+      "name": "Replay",
+      "result": "PASS",
+      "evidence": "ledgers/consumption.db",
+      "detail": "Replayed steps 10-20: hash OK=True, spans OK=True, batch_ids OK=True"
+    },
+    {
+      "name": "Fork",
+      "result": "PASS",
+      "evidence": "ledgers/consumption.db (branch_id=fork_1d5c62e0)",
+      "detail": "Fork ran 5 independent steps"
+    },
+    {
+      "name": "Mixture schedule, protected floors and OPUS",
+      "result": "PASS",
+      "evidence": "ledgers/opus_decisions.jsonl + mixture accounting",
+      "detail": "OPUS decisions: {'FLOOR_OVERRIDE': 5, 'ACCEPTED': 29, 'REJECTED': 14, 'DEFERRED': 3}, planned_nonzero=True, deferred_queue_len=0"
+    },
+    {
+      "name": "Consumption and learning ledgers",
+      "result": "PASS",
+      "evidence": "ledgers/learning.jsonl + consumption.db",
+      "detail": "50 events, token-level loss stored, no_duplicates=True, no_skips=True"
+    },
+    {
+      "name": "Throughput and packing efficiency",
+      "result": "PASS",
+      "evidence": "performance.json",
+      "detail": "PAD util=68.8% vs GREEDY util=70.3% \u2014 useful-loss-bearing < raw when padding present"
+    },
+    {
+      "name": "Checkpoint, crash, resume, replay and fork",
+      "result": "PASS",
+      "evidence": "4 checkpoints verified",
+      "detail": "Crash at 25, resumed from step 20"
+    },
+    {
+      "name": "Tests, evidence quality and documentation",
+      "result": "PASS",
+      "evidence": "tests/test_*.py",
+      "detail": "67 tests, 0 failures"
+    }
+  ]
+}

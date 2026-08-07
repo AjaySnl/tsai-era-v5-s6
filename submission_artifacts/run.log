@@ -1,0 +1,169 @@
+2026-08-07 18:03:25,146 INFO     ======================================================================
+2026-08-07 18:03:25,146 INFO     ERA V5 — Training Data Execution System
+2026-08-07 18:03:25,146 INFO     ======================================================================
+2026-08-07 18:03:25,146 INFO     
+[PHASE 1] Generating corpus ...
+2026-08-07 18:03:25,146 INFO       Corpus: 56 train, 3 eval, 3 validation docs
+2026-08-07 18:03:25,146 INFO     
+[PHASE 2] Freezing tokenizer ...
+2026-08-07 18:03:25,146 INFO       Tokenizer frozen. Hash: 36408224281c3e6f... vocab_size=103
+2026-08-07 18:03:25,146 INFO     [PASS] tokenizer_hash_verified
+2026-08-07 18:03:25,146 INFO     [AUDIT] [OK] Tokenizer integrity: PASS -- Tokenizer re-hash matches on second init
+2026-08-07 18:03:25,146 INFO     
+[PHASE 3] Building tokenized shards ...
+2026-08-07 18:03:25,146 INFO       Shard created: shard_web_v1 (748 tokens)
+2026-08-07 18:03:25,146 INFO       Shard created: shard_code_v1 (1152 tokens)
+2026-08-07 18:03:25,146 INFO       Shard created: shard_indic_v1 (772 tokens)
+2026-08-07 18:03:25,155 INFO       Shard created: shard_stem_v1 (969 tokens)
+2026-08-07 18:03:25,156 INFO       Shard created: shard_agentic_v1 (1720 tokens)
+2026-08-07 18:03:25,159 INFO       Shard created: shard_reasoning_v1 (1818 tokens)
+2026-08-07 18:03:25,159 INFO       Shard created: shard_longctx_v1 (5145 tokens)
+2026-08-07 18:03:25,159 INFO     [FIREWALL] Registered blocked shard: shard_eval_doc_0056_eval_eval (eval)
+2026-08-07 18:03:25,159 INFO     [FIREWALL] Registered blocked shard: shard_eval_doc_0057_eval_eval (eval)
+2026-08-07 18:03:25,159 INFO     [FIREWALL] Registered blocked shard: shard_eval_doc_0058_eval_eval (eval)
+2026-08-07 18:03:25,159 INFO     [FIREWALL] Registered blocked shard: shard_val_doc_0059_validation_validation (validation)
+2026-08-07 18:03:25,159 INFO     [FIREWALL] Registered blocked shard: shard_val_doc_0060_validation_validation (validation)
+2026-08-07 18:03:25,159 INFO     [FIREWALL] Registered blocked shard: shard_val_doc_0061_validation_validation (validation)
+2026-08-07 18:03:25,159 INFO       Total shards: 7 train + 3 eval
+2026-08-07 18:03:25,159 INFO       Manifests written: 13
+2026-08-07 18:03:25,606 INFO     [AUDIT] [OK] Shards and manifest integrity: PASS -- manifests/shard_web_v1.json
+2026-08-07 18:03:25,606 INFO     
+[PHASE 4] Demonstrating eval firewall ...
+2026-08-07 18:03:25,606 INFO     [PASS] eval_shard_blocked: 'shard_eval_doc_0056_eval_eval' correctly rejected by firewall.
+2026-08-07 18:03:25,606 INFO     [PASS] eval_shard_blocked: 'shard_val_doc_0059_validation_validation' correctly rejected by firewall.
+2026-08-07 18:03:25,606 INFO     [AUDIT] [OK] Evaluation firewall: PASS -- Eval shard 'shard_eval_doc_0056_eval_eval' and val shard 'shard_val_doc_0059_validation_validation' both blocked
+2026-08-07 18:03:25,606 INFO     
+[PHASE 5] Initialising training infrastructure ...
+2026-08-07 18:03:26,789 INFO       Model parameters: 12,103
+2026-08-07 18:03:26,789 INFO       Training for 50 steps, crash at step 25
+2026-08-07 18:03:26,789 INFO     
+[PHASE 5b] Demonstrating SFT and agentic loss masks ...
+2026-08-07 18:03:26,789 INFO       SFT mask: prompt_tokens=25 with loss=0, response_tokens=27 with loss=1 [VERIFIED]
+2026-08-07 18:03:26,789 INFO       Agentic mask: observation_tokens with loss=0 [VERIFIED], model_output_tokens=16 with loss=1 [VERIFIED]
+2026-08-07 18:03:26,789 INFO     [AUDIT] [OK] SFT and agentic loss masks: PASS -- Verified in Phase 5b: SFT prompt=0/response=1, agentic observation=0/output=1
+2026-08-07 18:03:26,789 INFO     
+[PHASE 5c] Verifying attention_mask and position_ids ...
+2026-08-07 18:03:26,789 INFO     [PASS] attention_mask_correct: attention_mask: 32 real tokens=1, 32 pad tokens=0
+2026-08-07 18:03:26,789 INFO     [PASS] position_ids_correct: position_ids: starts_at_zero=True, doc_boundary_resets=[]
+2026-08-07 18:03:26,789 INFO     [AUDIT] [OK] Packing correctness (attention_mask + position_ids): PASS -- Phase 5c: attention_mask and position_ids verified on multi-doc GREEDY batch
+2026-08-07 18:03:26,789 INFO     
+[PHASE 6] Training loop (will crash at step 25) ...
+2026-08-07 18:03:26,823 INFO       step=  5 loss=4.6613 ppl=105.77 lane=web grad=0.7553
+2026-08-07 18:03:26,847 INFO       step= 10 loss=4.5560 ppl=95.21 lane=web grad=1.1927
+2026-08-07 18:03:26,943 INFO     [PASS] checkpoint_saved: step=10, hash=c3eaf5be, path=step_00010.json
+2026-08-07 18:03:26,967 INFO       step= 15 loss=4.4725 ppl=87.58 lane=stem grad=0.8069
+2026-08-07 18:03:26,991 INFO       step= 20 loss=4.2668 ppl=71.29 lane=code grad=1.2438
+2026-08-07 18:03:27,093 INFO     [PASS] checkpoint_saved: step=20, hash=26f7acd2, path=step_00020.json
+2026-08-07 18:03:27,111 WARNING  
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+2026-08-07 18:03:27,111 WARNING  [CRASH] Simulated crash at step 25: Simulated crash at step 25 — checkpoint at step 20 should be used for recovery.
+2026-08-07 18:03:27,111 WARNING  [CRASH] Last checkpoint saved at step 20
+2026-08-07 18:03:27,111 WARNING  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+2026-08-07 18:03:27,111 INFO     [AUDIT] [OK] Crash simulation: PASS -- SimulatedCrashError raised at step 25
+2026-08-07 18:03:27,111 INFO     
+[PHASE 7] Resuming from checkpoint step 20 ...
+2026-08-07 18:03:27,180 INFO       Loaded checkpoint: step=20, ledger_offset=20
+2026-08-07 18:03:27,186 INFO     [PASS] resume_next_batch_matched: probe_hash=9d27dd728bc6c880 == actual_hash=9d27dd728bc6c880 (independent probe mixer agrees with restored mixer, step 25 not yet in ledger)
+2026-08-07 18:03:27,186 INFO     [AUDIT] [OK] Crash recovery: PASS -- checkpoints/step_00020.json
+2026-08-07 18:03:27,186 INFO       Continuing training from step 25 to 50 ...
+2026-08-07 18:03:27,195 INFO       step= 25 loss=4.1836 ppl=65.60 lane=stem grad=0.7698
+2026-08-07 18:03:27,217 INFO       step= 30 loss=3.8871 ppl=48.77 lane=indic grad=3.7984
+2026-08-07 18:03:27,313 INFO     [PASS] checkpoint_saved: step=30, hash=5c463d43, path=step_00030.json
+2026-08-07 18:03:27,339 INFO       step= 35 loss=3.8905 ppl=48.94 lane=web grad=0.8085
+2026-08-07 18:03:27,363 INFO       step= 40 loss=3.7159 ppl=41.10 lane=web grad=0.8228
+2026-08-07 18:03:27,465 INFO     [PASS] checkpoint_saved: step=40, hash=9527bbe9, path=step_00040.json
+2026-08-07 18:03:27,491 INFO       step= 45 loss=3.7000 ppl=40.45 lane=code grad=1.4711
+2026-08-07 18:03:27,515 INFO       step= 50 loss=3.3690 ppl=29.05 lane=web grad=0.8183
+2026-08-07 18:03:27,515 INFO     
+[PHASE 8] Replaying interval steps 10–20 ...
+2026-08-07 18:03:27,516 INFO       Original events in range: 11
+2026-08-07 18:03:27,516 INFO     [PASS] replay_hash_matched: all 11 batches match on hash, token_span, and batch_id
+2026-08-07 18:03:27,516 INFO     [AUDIT] [OK] Replay: PASS -- ledgers/consumption.db
+2026-08-07 18:03:27,516 INFO     
+[PHASE 9] Forking from step 30 ...
+2026-08-07 18:03:27,580 INFO       Fork branch: fork_1d5c62e0 from step 30
+2026-08-07 18:03:27,597 INFO       Fork ran 5 steps on branch 'fork_1d5c62e0'
+2026-08-07 18:03:27,597 INFO     [AUDIT] [OK] Fork: PASS -- ledgers/consumption.db (branch_id=fork_1d5c62e0)
+2026-08-07 18:03:27,597 INFO     
+[PHASE 10] Mixture compliance report ...
+2026-08-07 18:03:27,597 INFO       web         : planned=  1888 actual=  2048 OK
+2026-08-07 18:03:27,597 INFO       code        : planned=   600 actual=   512 OK
+2026-08-07 18:03:27,597 INFO       indic       : planned=   308 actual=   256 OK
+2026-08-07 18:03:27,597 INFO       stem        : planned=   362 actual=   128 UNDER
+2026-08-07 18:03:27,597 INFO       agentic     : planned=     0 actual=    64 OK
+2026-08-07 18:03:27,597 INFO       reasoning   : planned=   190 actual=   192 OK
+2026-08-07 18:03:27,597 INFO       longctx     : planned=     0 actual=     0 UNDER
+2026-08-07 18:03:27,597 INFO     [AUDIT] [OK] Mixture schedule, protected floors and OPUS: PASS -- ledgers/opus_decisions.jsonl + mixture accounting
+2026-08-07 18:03:27,597 INFO     
+[PHASE 11] Verifying learning ledger ...
+2026-08-07 18:03:27,616 INFO       Learning ledger events: 50, has_token_loss=True, no_duplicates=True (dupes: []), no_skips=True (skipped: [])
+2026-08-07 18:03:27,616 INFO     [AUDIT] [OK] Consumption and learning ledgers: PASS -- ledgers/learning.jsonl + consumption.db
+2026-08-07 18:03:27,616 INFO     
+[PHASE 12] Measuring throughput ...
+2026-08-07 18:03:27,639 INFO       PAD_ONLY:    raw=42516/sec, useful=29230/sec, util=68.8%
+2026-08-07 18:03:27,639 INFO       GREEDY:      raw=47010/sec, useful=33054/sec, util=70.3%
+2026-08-07 18:03:27,639 INFO       Key insight: PAD_ONLY util=68.8% (44/64 useful tokens); GREEDY util=70.3% (45/64 useful tokens). Raw tokens/sec identical for both; useful-loss-bearing tokens/sec differs by 3824/sec
+2026-08-07 18:03:27,641 INFO     [AUDIT] [OK] Throughput and packing efficiency: PASS -- performance.json
+2026-08-07 18:03:27,641 INFO     
+[PHASE 13] Auditing eval firewall ...
+2026-08-07 18:03:27,641 INFO       No eval shards found in consumption ledger. ✓
+2026-08-07 18:03:27,641 INFO     
+[PHASE 14] Verifying checkpoint hashes ...
+2026-08-07 18:03:27,701 INFO       step_00010.json ✓
+2026-08-07 18:03:27,743 INFO       step_00020.json ✓
+2026-08-07 18:03:27,786 INFO       step_00030.json ✓
+2026-08-07 18:03:27,839 INFO       step_00040.json ✓
+2026-08-07 18:03:27,839 INFO     [AUDIT] [OK] Checkpoint, crash, resume, replay and fork: PASS -- 4 checkpoints verified
+2026-08-07 18:03:27,839 INFO     
+[PHASE 15] Running automated test suite ...
+2026-08-07 18:03:27,872 INFO     [PASS] checkpoint_saved: step=1, hash=945df279, path=step_00001.json
+2026-08-07 18:03:27,889 INFO     [PASS] checkpoint_saved: step=2, hash=66911c99, path=step_00002.json
+2026-08-07 18:03:28,026 INFO     [PASS] checkpoint_saved: step=5, hash=430f3069, path=step_00005.json
+2026-08-07 18:03:28,142 INFO     [PASS] checkpoint_saved: step=10, hash=8d425b38, path=step_00010.json
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: eval_shard_001 (eval)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: val_shard_001 (validation)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: eval_shard_001 (eval)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: val_shard_001 (validation)
+2026-08-07 18:03:28,192 INFO     [PASS] eval_shard_blocked: 'eval_shard_001' correctly rejected by firewall.
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: eval_shard_001 (eval)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: val_shard_001 (validation)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: eval_shard_001 (eval)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: val_shard_001 (validation)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: eval_shard_001 (eval)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: val_shard_001 (validation)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: eval_shard_001 (eval)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: val_shard_001 (validation)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: eval_shard_001 (eval)
+2026-08-07 18:03:28,192 INFO     [FIREWALL] Registered blocked shard: val_shard_001 (validation)
+2026-08-07 18:03:28,435 INFO       Tests: 67 run, 0 failures, 0 errors
+2026-08-07 18:03:28,435 INFO     [AUDIT] [OK] Tests, evidence quality and documentation: PASS -- tests/test_*.py
+2026-08-07 18:03:28,435 INFO     
+[PHASE 16] Generating evidence bundle ...
+2026-08-07 18:03:28,439 INFO     Evidence saved → evidence.json, evidence.md
+2026-08-07 18:03:28,439 INFO     
+======================================================================
+2026-08-07 18:03:28,439 INFO     FINAL RESULTS
+2026-08-07 18:03:28,439 INFO     ======================================================================
+2026-08-07 18:03:28,440 INFO       [PASS] Tokenizer integrity
+2026-08-07 18:03:28,440 INFO       [PASS] Shards and manifest integrity
+2026-08-07 18:03:28,440 INFO       [PASS] Evaluation firewall
+2026-08-07 18:03:28,440 INFO       [PASS] SFT and agentic loss masks
+2026-08-07 18:03:28,440 INFO       [PASS] Packing correctness (attention_mask + position_ids)
+2026-08-07 18:03:28,440 INFO       [PASS] Crash simulation
+2026-08-07 18:03:28,440 INFO       [PASS] Crash recovery
+2026-08-07 18:03:28,440 INFO       [PASS] Replay
+2026-08-07 18:03:28,440 INFO       [PASS] Fork
+2026-08-07 18:03:28,440 INFO       [PASS] Mixture schedule, protected floors and OPUS
+2026-08-07 18:03:28,440 INFO       [PASS] Consumption and learning ledgers
+2026-08-07 18:03:28,440 INFO       [PASS] Throughput and packing efficiency
+2026-08-07 18:03:28,440 INFO       [PASS] Checkpoint, crash, resume, replay and fork
+2026-08-07 18:03:28,440 INFO       [PASS] Tests, evidence quality and documentation
+2026-08-07 18:03:28,440 INFO     ======================================================================
+2026-08-07 18:03:28,440 INFO       Overall: PASS
+2026-08-07 18:03:28,441 INFO       Manifests:   13
+2026-08-07 18:03:28,442 INFO       Checkpoints: 4
+2026-08-07 18:03:28,442 INFO       Ledger rows: 55
+2026-08-07 18:03:28,442 INFO       Run log:     C:\ERA_V5_TSAI\Session_6_Building_the_Training_Dataset\Session_6_Assignment\submission_artifacts\run.log
+2026-08-07 18:03:28,442 INFO       Evidence:    C:\ERA_V5_TSAI\Session_6_Building_the_Training_Dataset\Session_6_Assignment\submission_artifacts\evidence.md
+2026-08-07 18:03:28,442 INFO     ======================================================================
